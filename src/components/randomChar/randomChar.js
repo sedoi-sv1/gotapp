@@ -24,7 +24,7 @@ export default class RandomChar extends Component {
         culture: null
     }
 
-    /*updateChar() {
+    /*updateChar(1) {
         /* Получаем id 
         const id = 130;
 
