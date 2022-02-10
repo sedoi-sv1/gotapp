@@ -16,16 +16,18 @@ async getResource(url) {
     return await res.json();        
     };
 
-    getAllChacters() {    
-        return this.getResource('/characters?page=5&pageSize=10');
+    async getAllChacters() {
+        const res = await this.getResource('/characters?page=5&pageSize=10');    
+        return res.map(this._transformCharacter);
     }
     
     getChacter(id) {
         return this.getResource(`/characters/${id}`);
     }
     
-    getAllHouses() {
-        return this.getResource(`/houses/`);
+    async getAllHouses() {
+        const character = await this.getResource(`/houses/`);
+        return this._transformCharacter(character);
     }
 
     getHouse(id) {
@@ -40,9 +42,19 @@ async getResource(url) {
         return this.getResource(`/books/${id}`);
     
     }
+
+    _transformCharacter(char) {
+        return {
+            name: char.name,
+            gender: char.gender,
+            born: char.born,
+            died: char.died,
+            culture: char.cultu
+        }
+    }
 }
 
 
 
 
-    /* 21 53 урок 2.1*/ 
+    /* 10 min 20 sec  урок 2.2 описать*/ 

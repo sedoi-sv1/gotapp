@@ -16,41 +16,27 @@ export default class RandomChar extends Component {
     /* Состояние компонента меняется каждую секунду создаём объект стейт (state)
     Получаем данные которые поместим в приложение */
     state = {
-        /* изначально данные null до получения с сервера */
-        name: null,
-        gender: null,
-        born: null,
-        died: null,
-        culture: null
+        /* изначально данные null до получения с сервера пустой объект char 
+        созданный  gotService*/
+        char: {}
     }
 
-    /*updateChar(11111) {
-        /* Получаем id 
-        const id = 130;
-
-        this.gotService.getChacter(id)
-            .then((char) => {
-                this.setState({
-                    name: char.name,
-                    gender: char.gender,
-                    born: char.name,
-                    died: char.died,
-                    culture: char.culture
-                })
-            });
-    }*/
+    onCharLoaded = (char) => {
+        this.setState({char})
+    }
     /* Создаём функцию обновления персонажа*/
     updateChar() {
         /* Получаем id */
-        const id = 130;
-        /* Используем id получаем новый инстонс (стр 8) this.gotService 
+        const id = Math.floor(Math.random() * 140 + 25);
+        /*О писывается функция  this.GotService.getChacter(id) Используем id получаем новый инстонс (стр 8) this.gotService 
         и исползуем метод .getCharacter получаем определёный id(стр 25)
         эта конструкция (this.GotService.getChacter(id)) возвращяет промис
         и его надо обработать исполюзуем метод .then() во внутрь помещаем стрелочную 
         функцию которая будет принимать данные с сервера ((char) => {}) 
         Получив данные от сервиса устанавливаем в state (стр 14)
-        this.setState({name: char.name вытаскиваем данные персонажа }) */
+        this.setState({name: char.name вытаскиваем данные персонажа }) 
         this.GotService.getChacter(id)
+        Возвращяется с сервера объект с данными  
             .then((char) => {
                 this.setState({
                     name: char.name,
@@ -59,12 +45,17 @@ export default class RandomChar extends Component {
                     died: char.died,
                     culture: char.culture
                 })
-            });
+            }); */
+
+            this.GotService.getChacter(id)
+                .then(this.onCharLoaded);
+
     }
 
     render() {
 
-        const {name, gender, born, died, culture} = this.state;
+    /* Вытаскиваем из объекта char с помощю деструкторизации {char:} данные */
+        const {char:{name, gender, born, died, culture} } = this.state;
 
         
 
@@ -95,4 +86,4 @@ export default class RandomChar extends Component {
 }
 
 
-/* 9:00 2.2  */
+/* 9:00 2.2 описать */
