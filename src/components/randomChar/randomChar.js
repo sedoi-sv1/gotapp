@@ -22,11 +22,13 @@ export default class RandomChar extends Component {
     }
 
     onCharLoaded = (char) => {
+        /* Принимает нашего персонажа (char) и устанавливает state */
         this.setState({char})
     }
     /* Создаём функцию обновления персонажа*/
     updateChar() {
-        /* Получаем id */
+        /* Получаем id floor округляет до единицы. Math.random() * 140 + 25 возвращает случайное число в заданном интервале
+        от 25 до 140 */
         const id = Math.floor(Math.random() * 140 + 25);
         /*О писывается функция  this.GotService.getChacter(id) Используем id получаем новый инстонс (стр 8) this.gotService 
         и исползуем метод .getCharacter получаем определёный id(стр 25)
