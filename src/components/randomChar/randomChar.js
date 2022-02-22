@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './randomChar.css';
 import gotService from '../../services/gotService';
+import Spinner from '../spiner';
 
 export default class RandomChar extends Component {
     /* Когда создастся инстонс RandomChar у него будетвызван метод this.updateChar() стр 28 */
@@ -18,12 +19,18 @@ export default class RandomChar extends Component {
     state = {
         /* изначально данные null до получения с сервера пустой объект char 
         созданный  gotService*/
-        char: {}
+        char: {},
+        /* Когда загружается компонент это состояние state   */
+        loading: true
     }
 
     onCharLoaded = (char) => {
         /* Принимает нашего персонажа (char) и устанавливает state */
-        this.setState({char})
+        this.setState({
+            char,
+            /* при получении персонажа loading выставляем в  false */
+            loading: false 
+        })
     }
     /* Создаём функцию обновления персонажа*/
     updateChar() {
@@ -57,12 +64,31 @@ export default class RandomChar extends Component {
     render() {
 
     /* Вытаскиваем из объекта char с помощю деструкторизации {char:} данные */
-        const {char:{name, gender, born, died, culture} } = this.state;
+        const {char, loading } = this.state;
+    /* Если наш state loading возвращяем наш Spiner  
+        if(loading) {
+            return <Spinner/>
+        }*/
 
-        
+        /* Если loading true или folse далее теренарная операция если loading true то
+        в вёрстке <Spinner/> если folse то null*/
+        const spinner = loading ? <Spinner/> : null;
+        const content = !loading ? <View char = {char} /> : null;
 
         return (
-            <div className="random-block rounded">
+            <div className="random-block rounded"> 
+                {spinner}
+                {content}
+            </div>
+        );
+    }
+}
+
+const View = ({char}) => {
+    /* Вытаскиваем из пропса char данные  */
+    const {name, gender, born, died, culture} = char;
+    return (
+       <>
                 <h4>Random Character: {name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
@@ -82,10 +108,9 @@ export default class RandomChar extends Component {
                         <span>{culture}</span>
                     </li>
                 </ul>
-            </div>
-        );
-    }
+       </> 
+    )
 }
 
 
-/* 9:00 2.2 описать */
+/* 31:02 2.2 описать */
