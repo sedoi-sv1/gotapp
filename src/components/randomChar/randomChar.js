@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './randomChar.css';
 import gotService from '../../services/gotService';
 import Spinner from '../spiner';
+import ErrorMessange from '../errorMessange';
+
 
 export default class RandomChar extends Component {
     /* Когда создастся инстонс RandomChar у него будетвызван метод this.updateChar() стр 28 */
@@ -29,7 +31,16 @@ export default class RandomChar extends Component {
         this.setState({
             char,
             /* при получении персонажа loading выставляем в  false */
-            loading: false 
+            loading: false,
+            error: false
+        })
+    }
+
+    onError = (err) => {
+        this.setState({
+            /* Если произошла ошибка error: true а loading: false */
+            error: true,
+            loading: false
         })
     }
     /* Создаём функцию обновления персонажа*/
@@ -37,6 +48,7 @@ export default class RandomChar extends Component {
         /* Получаем id floor округляет до единицы. Math.random() * 140 + 25 возвращает случайное число в заданном интервале
         от 25 до 140 */
         const id = Math.floor(Math.random() * 140 + 25);
+        
         /*О писывается функция  this.GotService.getChacter(id) Используем id получаем новый инстонс (стр 8) this.gotService 
         и исползуем метод .getCharacter получаем определёный id(стр 25)
         эта конструкция (this.GotService.getChacter(id)) возвращяет промис
@@ -57,14 +69,18 @@ export default class RandomChar extends Component {
             }); */
 
             this.GotService.getChacter(id)
-                .then(this.onCharLoaded);
+                .then(this.onCharLoaded)
+            /*Прописываем свойство промиса .catch() оно выполнится когда
+            произойдёт ошибка в свойство передаём функцию onError */
+                .catch(this.onError);    
 
     }
 
     render() {
 
     /* Вытаскиваем из объекта char с помощю деструкторизации {char:} данные */
-        const {char, loading } = this.state;
+        const {char, loading, error } = this.state;
+        const errorMessange =  error ? <ErrorMessange/> : null;
     /* Если наш state loading возвращяем наш Spiner  
         if(loading) {
             return <Spinner/>
@@ -73,10 +89,11 @@ export default class RandomChar extends Component {
         /* Если loading true или folse далее теренарная операция если loading true то
         в вёрстке <Spinner/> если folse то null*/
         const spinner = loading ? <Spinner/> : null;
-        const content = !loading ? <View char = {char} /> : null;
+        const content = !(loading || error) ? <View char = {char} /> : null;
 
         return (
             <div className="random-block rounded"> 
+                {errorMessange}
                 {spinner}
                 {content}
             </div>
@@ -88,7 +105,7 @@ const View = ({char}) => {
     /* Вытаскиваем из пропса char данные  */
     const {name, gender, born, died, culture} = char;
     return (
-       <>
+        <>
                 <h4>Random Character: {name}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between">
@@ -108,9 +125,9 @@ const View = ({char}) => {
                         <span>{culture}</span>
                     </li>
                 </ul>
-       </> 
+        </> 
     )
 }
 
 
-/* 31:02 2.2 описать */
+/* 39:02 2.2 описать */
