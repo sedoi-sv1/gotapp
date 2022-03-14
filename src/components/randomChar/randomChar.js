@@ -47,8 +47,8 @@ export default class RandomChar extends Component {
     updateChar() {
         /* Получаем id floor округляет до единицы. Math.random() * 140 + 25 возвращает случайное число в заданном интервале
         от 25 до 140 */
-        //const id = Math.floor(Math.random() * 140 + 25);
-        const id = 130000;
+        const id = Math.floor(Math.random() * 140 + 25);
+        //const id = 130000;
         
         /*О писывается функция  this.GotService.getChacter(id) Используем id получаем новый инстонс (стр 8) this.gotService 
         и исползуем метод .getCharacter получаем определёный id(стр 25)
@@ -79,10 +79,10 @@ export default class RandomChar extends Component {
 
     render() {
 
-    /* Вытаскиваем из объекта char с помощю деструкторизации {char:} данные */
+      /* Вытаскиваем из объекта char с помощю деструкторизации {char:} данные */
         const {char, loading, error } = this.state;
         const errorMessange =  error ? <ErrorMessange/> : null;
-    /* Если наш state loading возвращяем наш Spiner  
+        /* Если наш state loading возвращяем наш Spiner  
         if(loading) {
             return <Spinner/>
         }*/
