@@ -7,14 +7,8 @@ import ErrorMessange from '../errorMessange';
 
 export default class RandomChar extends Component {
     /* Когда создастся инстонс RandomChar у него будетвызван метод this.updateChar() стр 28 */
-    constructor() {
-    super();
-    this.updateChar();
-    }
     /* Создаём новый инстанс services */
     GotService = new gotService();
-    
-
 
     /* Состояние компонента меняется каждую секунду создаём объект стейт (state)
     Получаем данные которые поместим в приложение */
@@ -23,7 +17,20 @@ export default class RandomChar extends Component {
         созданный  gotService*/
         char: {},
         /* Когда загружается компонент это состояние state   */
-        loading: true
+        loading: true,
+        error: false
+    }
+    /* функция componentDidMount запускается когда компонент успешно отрисовался */
+    componentDidMount() {
+        this.updateChar();
+    /* Запускаем функцию setInterval() берём команду this.updateChar запускаем
+    через полторы секунды Так как мы используем контекст вызова this.updateChar 
+    метод updateChar переделываем в стрелочную функцию на сроке 56 */
+        this.timerId = setInterval(this.updateChar, 1500);
+    }
+    /* Функция componentWillUnmount запускается когда удаляется компонент кнопкой останавливается setInterval функцией clearInterval(this.timerId) */
+    componentWillUnmount() {
+        clearInterval(this.timerId);
     }
 
     onCharLoaded = (char) => {
@@ -44,7 +51,8 @@ export default class RandomChar extends Component {
         })
     }
     /* Создаём функцию обновления персонажа*/
-    updateChar() {
+    // пояснения в строке 15 было updateChar() { стала стрелочная функция
+    updateChar = () => {
         /* Получаем id floor округляет до единицы. Math.random() * 140 + 25 возвращает случайное число в заданном интервале
         от 25 до 140 */
         const id = Math.floor(Math.random() * 140 + 25);

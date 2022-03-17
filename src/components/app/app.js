@@ -4,66 +4,30 @@ import Header from '../header';
 import RandomChar from '../randomChar';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
-import styled from 'styled-components';
+import './app.css';
 
-function WarningBanner(props) {
-    if (!props.warn) {
+
+function RandomCha(props) {
+    if (!props.char) {
         return null;
     }
 
     return (
-        <div className="warning">
-            Предупреждение!
-        </div>
+        <RandomChar/>
     );
 }
-
-const Block = styled.div`
-    
-margin-bottom: 4
-0px;
-
-`;
-
-const BlockBan = styled.div`
-    
-button {
-    height: 40px;
-    width: 200px;
-} `;
-
-const BlockW = styled.div`
-.warning {
-    background-color: red;
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-
-    font-size: 14pt;
-    color: white;
-}
-
-`;
-
-function handleSubmit(e) {
-    e.preventDefault();
-    
-        alert(1);
-    
-}
-
 
 export default class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {showWarning: true};
-        this.handleToggleClick = this.handleToggleClick.bind(this);
+        this.state = {showChar: true};
+        this.charToggleClick = this.charToggleClick.bind(this);
     }
     
-    handleToggleClick() {
+    charToggleClick() {
         this.setState(state => ({
-            showWarning: !state.showWarning
+            showChar: !state.showChar
         }));
     }
     
@@ -76,27 +40,14 @@ render() {
             <Container>
                 <Row>
                     <Col lg={{size: 5, offset: 0}}>
-                        <RandomChar/>
+                        <RandomCha char={this.state.showChar}/>
                     </Col>
                 </Row>
                 <Container>
-                    <Block>  
-                        <form onSubmit={handleSubmit}>
-                            <button type="submit" className="btn btn-primary">Отправить</button>
-                        </form>
-                    </Block>
-                    <BlockW>
-                    <WarningBanner warn={this.state.showWarning} />
-                    </BlockW> 
+                    <button type="button" className="btn btn-primary " onClick={this.charToggleClick}>
+                            {this.state.showChar ? 'Скрыть' : 'Показать'}
+                    </button> 
                     
-                    <BlockBan>
-                    <div>
-                        
-                        <button onClick={this.handleToggleClick}>
-                            {this.state.showWarning ? 'Скрыть' : 'Показать'}
-                        </button>
-                    </div>
-                    </BlockBan >
                 </Container>
                 
                 <Row>
