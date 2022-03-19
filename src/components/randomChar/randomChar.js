@@ -6,7 +6,7 @@ import ErrorMessange from '../errorMessange';
 
 
 export default class RandomChar extends Component {
-    /* Когда создастся инстонс RandomChar у него будетвызван метод this.updateChar() стр 28 */
+    /* Когда создастся инстонс RandomChar у него будет вызван метод this.updateChar() стр 28 */
     /* Создаём новый инстанс services */
     GotService = new gotService();
 
