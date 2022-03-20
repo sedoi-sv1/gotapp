@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './itemList.css';
 import gotService from '../../services/gotService';
+import Spinner from '../spiner'; /* Импортируем Spiner во внутрь нашего компонента */
 export default class ItemList extends Component {
 
-    /* Когда создастся инстонс RandomChar у него будет вызван метод this.updateChar() стр 28 */
     /* Создаём новый инстанс services */
     GotService = new gotService();
     /* Создаём стёйт в котором булет хранится список персонажей charList
@@ -29,7 +29,11 @@ export default class ItemList extends Component {
     render() {
         /* Сщздаём переменную charList которую вытаскиваем из this.state */
         const {charList} = this.state;
-        /* 12 02 */
+        /* Если стейт не готов */
+        if (!charList) {
+            /* Из функции render возвращять Spiner  */
+            return <Spinner/>
+        }
         return (
             <ul className="item-list list-group">
                 <li className="list-group-item">
