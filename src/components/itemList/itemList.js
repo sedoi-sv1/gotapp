@@ -37,7 +37,7 @@ export default class ItemList extends Component {
                     className="list-group-item"
                     /* Каждому элементу передаём обработчик события что бы выбрать персонажа
                     который будет принимать в себя метод onCharSelected с номером i {this.props.onCharSelected(i)} */
-                    onClick={this.props.onCharSelected(i)}
+                    onClick={ () => this.props.onCharSelected(i)}
                     >
                     {/* каждый элемент будет принимать имя */}
                     {item.name}
