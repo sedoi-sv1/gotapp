@@ -69,4 +69,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
  <!-- itemList 
+<<<<<<< HEAD
  Урок 2.4. Жизненный цикл компонентов 15 52 -->
+=======
+ Урок 2.4. Жизненный цикл компонентов 12 02 -->
+>>>>>>> parent of 3844ada (22.03.22 после обеда)
