@@ -28,7 +28,7 @@ export default class App extends Component {
     state = {
         showRandomChar: true,
         /* состояние показывающее выбраного персонажа */
-        selectedChar: 130
+        selectedChar: 101
     };
     
     /*charToggleClick() {
@@ -78,11 +78,11 @@ render() {
                 <Row>
                     <Col md='6'>
                         {/* Берём id передаём на уровень выше в app.js */}
-                        <ItemList />
+                        <ItemList onCharSelected={this.onCharSelected}/>
                     </Col>
                     <Col md='6'>
                         {/* Передаём выбранный id в CharDetails  */}
-                        <CharDetails />
+                        <CharDetails charId={this.state.selectedChar}/>
                     </Col>
                 </Row>
             </Container>
