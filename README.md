@@ -75,4 +75,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  Урок 2.4. Жизненный цикл компонентов 12 02 -->
 >>>>>>> parent of 3844ada (22.03.22 после обеда)
 
-Урок 2.5. Паттерны React
+Урок 2.5. Паттерны React 11 45

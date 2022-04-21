@@ -5,6 +5,9 @@ import RandomChar from '../randomChar';
 import './app.css';
 import ErrorMessange from '../errorMessange';
 import CharacterPage from '../characterPage';
+import ItemList from '../itemList';
+import CharDetails from '../charDetails';
+import gotService from '../../services/gotService';
 
 
 /*function RandomCha(props) {
@@ -18,6 +21,8 @@ import CharacterPage from '../characterPage';
 }*/
 
 export default class App extends Component {
+
+    GotService = new gotService();
 
     /*constructor(props) {
         super(props);
@@ -85,11 +90,33 @@ render() {
                 </Container>*/}
 
                 <CharacterPage/>
-                <CharacterPage/>
-                <CharacterPage/>
+                <Row>
+                    <Col md='6'>
+                        {/* Берём id передаём на уровень выше в app.js */}
+                        <ItemList 
+                        onCharSelected={this.onCharSelected}
+                        getData={this.GotService.getAllBooks}/>
+                    </Col>
+                    <Col md='6'>
+                        {/* Передаём выбранный id в CharDetails  */}
+                        <CharDetails charId={this.state.selectedChar}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md='6'>
+                        {/* Берём id передаём на уровень выше в app.js */}
+                        <ItemList 
+                            onCharSelected={this.onCharSelected}
+                            getData={this.GotService.getAllHouses}/>
+                    </Col>
+                    <Col md='6'>
+                        {/* Передаём выбранный id в CharDetails  */}
+                        <CharDetails charId={this.state.selectedChar}/>
+                    </Col>
+                </Row>
             
             </Container>
-        </>
+        </>   
     )
 }        
     

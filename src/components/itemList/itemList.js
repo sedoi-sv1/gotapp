@@ -1,26 +1,28 @@
 import React, {Component} from 'react';
 import './itemList.css';
-import gotService from '../../services/gotService';
 import Spinner from '../spiner'; /* Импортируем Spiner во внутрь нашего компонента */
 export default class ItemList extends Component {
 
-    /* Создаём новый инстанс services */
-    GotService = new gotService();
+    
     /* Создаём стёйт в котором булет хранится список персонажей charList
     изначально null*/
     state = {
-        charList: null
+        itemList: null
     }
     /* Используем жизненый цикл при успешной отрисовке componentDidMount()
     получаем персонажи */
     componentDidMount() {
-        this.GotService.getAllChacters()
+        /* Создаём переменную в которую передаём как проперти функцию
+        getData получать будем из this.props   */
+        const {getData} = this.props;
+
+        getData()
         /* Получив промес обрабатываем с помощю .then помещаем в неё стрелочную
         функцию получаем .then(charList)  */
-        .then ((charList) => {
+        .then ((itemList) => {
             /*В которой установим состояние charList  */
             this.setState({
-                charList
+                itemList
             })
         })
     }
@@ -49,15 +51,15 @@ export default class ItemList extends Component {
 
     render() {
         /* Сщздаём переменную charList которую вытаскиваем из this.state */
-        const {charList} = this.state;
+        const {itemList} = this.state;
         /* Если стейт не готов */
-        if (!charList) {
+        if (!itemList) {
             /* Из функции render возвращять Spiner  */
             return <Spinner/>
         }
         /* Метод renderItems используем в вёрстке
         Создаём переменную items в которой используем метод this.renderItems(сюда передаём charList) */
-        const items = this.renderItems(charList);
+        const items = this.renderItems(itemList);
         return (
             <ul className="item-list list-group">
         {/* помещаем в вёрстку переменную items */}    
