@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import {Col, Row, Container} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
+import './app.css';
+import ErrorMessange from '../errorMessange';
+import CharacterPage from '../characterPage';
 import ItemList from '../itemList';
 import CharDetails from '../charDetails';
-import './app.css';
+import gotService from '../../services/gotService';
 
 
 /*function RandomCha(props) {
@@ -19,6 +22,8 @@ import './app.css';
 
 export default class App extends Component {
 
+    GotService = new gotService();
+
     /*constructor(props) {
         super(props);
         this.state = {showChar: true};
@@ -28,8 +33,16 @@ export default class App extends Component {
     state = {
         showRandomChar: true,
         /* состояние показывающее выбраного персонажа */
-        selectedChar: 101
+        
+        error: false
     };
+
+    componentDidCatch() {
+        console.log('error');
+        this.setState({
+            error: true
+        })
+    }
     
     /*charToggleClick() {
         this.setState(state => ({
@@ -45,14 +58,15 @@ export default class App extends Component {
         });
     };
 
-    /* Создаём обработчик событий который будет устанавливать выбранный id в selectedChar */
-    onCharSelected = (id) => {
-        this.setState({selectedChar: id
-        })
-    }
+
     
 render() {
     const char = this.state.showRandomChar ? <RandomChar/> : null;
+
+    if (this.state.error) {
+        return <ErrorMessange/>
+    }
+
     return (
         <> 
             <Container>
@@ -74,20 +88,38 @@ render() {
                     </button> 
                     
                 </Container>*/}
-                
+
+                <CharacterPage/>
                 <Row>
-                    <Col md='6'>
+                <Col md='6'>
                         {/* Берём id передаём на уровень выше в app.js */}
-                        <ItemList onCharSelected={this.onCharSelected}/>
+                        <ItemList 
+                            onCharSelected={this.onCharSelected}
+                            getData={this.GotService.getAllHouses}
+                            renderItem={(item) => item.name}/>
                     </Col>
                     <Col md='6'>
                         {/* Передаём выбранный id в CharDetails  */}
                         <CharDetails charId={this.state.selectedChar}/>
                     </Col>
                 </Row>
+                <Row>
+                    <Col md='6'>
+                        {/* Берём id передаём на уровень выше в app.js */}
+                        <ItemList 
+                            onCharSelected={this.onCharSelected}
+                            getData={this.GotService.getAllBooks}
+                            renderItem={(item) => item.name}/>
+                    </Col>
+                    <Col md='6'>
+                        {/* Передаём выбранный id в CharDetails  */}
+                        <CharDetails charId={this.state.selectedChar}/>
+                    </Col>
+                </Row>
+            
             </Container>
-        </>
-    );
+        </>   
+    )
 }        
     
-}
+};
