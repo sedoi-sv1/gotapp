@@ -25,24 +25,27 @@ export default class ItemList extends Component {
                 itemList
             })
         })
+        
     }
     /* Создаём метод renderItems возврещяющий список из api он будет создавать массив (arr) */
     renderItems(arr) {
         /* этот метод будет возвращять перебор этого массива
         берём arr перебираем .map передаём во внутрь колбэк функцию (item 'каждый элемент' i 'порядковый номер') */
         return arr.map ((item, i) => {
+            const {id} = item;
+            const label = this.props.renderItem(item);
             /* стрелочная функция возвращяет элемент вёрстки */
             return(
                 <li
                 /* При береборке массива в реакте указываем номер элемента */
-                    key={i}
+                    key={id}
                     className="list-group-item"
                     /* Каждому элементу передаём обработчик события что бы выбрать персонажа
                     который будет принимать в себя метод onCharSelected с номером i {this.props.onCharSelected(i)} */
                     onClick={ () => this.props.onCharSelected(41 + i)}
                     >
                     {/* каждый элемент будет принимать имя */}
-                    {item.name}
+                    {label}
                 </li>
             )
         })

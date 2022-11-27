@@ -36,7 +36,8 @@ export default class CharacterPage extends Component {
                 {/* Берём id передаём на уровень выше в app.js */}
                 <ItemList 
                     onCharSelected={this.onCharSelected}
-                    getData= {this.GotService.getAllChacters}/>
+                    getData= {this.GotService.getAllChacters}
+                    renderItem={(item) => `${item.name} (${item.gender})`}/>
             </Col>
             <Col md='6'>
                 {/* Передаём выбранный id в CharDetails  */}

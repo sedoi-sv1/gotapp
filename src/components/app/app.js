@@ -91,11 +91,12 @@ render() {
 
                 <CharacterPage/>
                 <Row>
-                    <Col md='6'>
+                <Col md='6'>
                         {/* Берём id передаём на уровень выше в app.js */}
                         <ItemList 
-                        onCharSelected={this.onCharSelected}
-                        getData={this.GotService.getAllBooks}/>
+                            onCharSelected={this.onCharSelected}
+                            getData={this.GotService.getAllHouses}
+                            renderItem={(item) => item.name}/>
                     </Col>
                     <Col md='6'>
                         {/* Передаём выбранный id в CharDetails  */}
@@ -107,7 +108,8 @@ render() {
                         {/* Берём id передаём на уровень выше в app.js */}
                         <ItemList 
                             onCharSelected={this.onCharSelected}
-                            getData={this.GotService.getAllHouses}/>
+                            getData={this.GotService.getAllBooks}
+                            renderItem={(item) => item.name}/>
                     </Col>
                     <Col md='6'>
                         {/* Передаём выбранный id в CharDetails  */}

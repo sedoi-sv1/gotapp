@@ -26,7 +26,7 @@ export default class RandomChar extends Component {
     /* Запускаем функцию setInterval() берём команду this.updateChar запускаем
     через полторы секунды Так как мы используем контекст вызова this.updateChar 
     метод updateChar переделываем в стрелочную функцию на сроке 56 */
-        this.timerId = setInterval(this.updateChar, 1500);
+        this.timerId = setInterval(this.updateChar, 10000);
     }
     /* Функция componentWillUnmount запускается когда удаляется компонент кнопкой останавливается setInterval функцией clearInterval(this.timerId) */
     componentWillUnmount() {
