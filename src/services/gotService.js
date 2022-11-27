@@ -4,8 +4,7 @@ export default class GotService {
     constructor() {
         this._apiBase = 'https://www.anapioficeandfire.com/api';
     }
-
-async getResource(url) {
+getResource = async(url) => {
     
     const res = await fetch(`${this._apiBase}${url}`);
     
@@ -16,7 +15,7 @@ async getResource(url) {
     return await res.json();        
     };
 
-    async getAllChacters() {
+getAllChacters = async() => {
         /* Промежуточная переменная res в которую помещяем донные сервера массив персонажей */
         const res = await this.getResource('/characters?page=5&pageSize=10');
         /* Метод map вызывает переданную функцию callback this._transformCharacter 
@@ -24,34 +23,34 @@ async getResource(url) {
         return res.map(this._transformCharacter);
     }
     
-    async getChacter(id) {
+    getChacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`)
         return this._transformCharacter(character);
     }
     
-    async getAllHouses() {
-        const res = await this.getResource(`/houses/`);
+    getAllHouses = async () => {
+        const res = await this.getResource(`/houses?page=5&pageSize=10`);
         return res.map(this._transformHouse);
     }
 
-    async getHouse(id) {
+    getHouse = async (id) => {
         const house = await this.getResource(`/houses/${id}`)
         return this._transformHouse(house);
     }
     
-    async getAllBooks() {
-        const res = await this.getResource(`/books/`);
+    getAllBooks = async () => {
+        const res = await this.getResource(`/books?page=5&pageSize=10`);
         return res.map(this._transformBook);
     }
     
-    async getBook(id) {
+    getBook = async (id) => {
         const book = await this.getResource(`/books/${id}`);
         return this._transformBook(book);
     
     }
 
      /* функция принимающая объект char и возвращяющяя данные */   
-    _transformCharacter(char) {
+    _transformCharacter = (char) => {
         return {
             name: char.name,
             gender: char.gender,
@@ -61,7 +60,7 @@ async getResource(url) {
         }
     }
 
-    _transformHouse(house) {
+    _transformHouse = (house) => {
         return {
             name: house.name,
             region: house.region,
@@ -72,7 +71,7 @@ async getResource(url) {
         }
     }
 
-    _transformBook(book) {
+    _transformBook = (book) => {
         return {
             neme: book.name,
             namberOfPages: book.namberOfPages,
